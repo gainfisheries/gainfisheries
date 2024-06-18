@@ -26,10 +26,7 @@
 {{ range recentStars 5 }}
 - [{{ .Repo.Name }}]({{ .Repo.URL }}) - {{ .Repo.Description }}
 {{- end }}
-### 📰 Recent Blog Posts
-{{ range rss "https://gainfisheries.com/sitemap.xml" 5 }}
-- [{{ .Title }}]({{ .URL }})
-{{- end }}
+
 ### 📫 How to reach me:
   - Twitter   : <https://twitter.com/gainfisheries>
   - Website   : <https://gainfisheries.pages.dev>
