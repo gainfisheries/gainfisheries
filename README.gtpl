@@ -27,7 +27,7 @@
 - [{{ .Repo.Name }}]({{ .Repo.URL }}) - {{ .Repo.Description }}
 {{- end }}
 ### 📰 Recent Blog Posts
-{{ range rss "https://gainfisheries.pages.dev/rss.xml" 5 }}
+{{ range rss "https://gainfisheries.com/sitemap.xml" 5 }}
 - [{{ .Title }}]({{ .URL }})
 {{- end }}
 ### 📫 How to reach me:
