@@ -12,7 +12,19 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Set up Git
+        run: |
+          git config --global user.name "Techie Tina the Snarky Circuit"
+          git config --global user.email "techanv-bot@users.noreply.github.com"
+        
+      - name: Delete existing github-metrics.svg
+        run: rm -f github-metrics.svg
+
       - uses: lowlighter/metrics@latest
+        id: generate-metrics
         with:
           token: ${{ secrets.GH_PAT }}
 
@@ -42,7 +54,7 @@ jobs:
           plugin_languages_sections: recently-used
           plugin_languages_recent_load: 400
           plugin_languages_recent_days: 14
-          commits_authoring: Gain Fisheries, gainfisheries, gainfisheries@users.noreply.github.com
+          commits_authoring: Techie Tina the Snarky Circuit, techanv-bot, techanv-bot@users.noreply.github.com
           plugin_lines: yes
           plugin_lines_history_limit: 1
           plugin_lines_repositories_limit: 4
@@ -50,10 +62,20 @@ jobs:
           plugin_pagespeed: yes
           plugin_pagespeed_detailed: yes
           plugin_pagespeed_token: ${{ secrets.PAGESPEED_TOKEN }}
-          plugin_pagespeed_url: https://gainfisheries.com
+          plugin_pagespeed_url: https://techanv.com
           plugin_stackoverflow: yes
           plugin_stackoverflow_user: 1
           plugin_stackoverflow_sections: answers-top
           plugin_stackoverflow_limit: 2
           plugin_traffic: yes
 
+      - name: Move generated file to github-metrics.svg
+        run: mv metrics.svg github-metrics.svg
+
+      - name: Commit changes
+        run: |
+          git add github-metrics.svg
+          git commit -m "Update github-metrics.svg - [Skip GitHub Action]" --author="Techie Tina the Snarky Circuit <techanv-bot@users.noreply.github.com>"
+          git push
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
